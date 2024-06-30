@@ -20,12 +20,13 @@ public class HistorialPedidos extends JFrame {
     private JPanel contentPane;	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HistorialPedidos frame = new HistorialPedidos();
-					frame.setVisible(true);
+					Inicio ini = new Inicio();
+					ini.setVisible(true);
+					ini.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

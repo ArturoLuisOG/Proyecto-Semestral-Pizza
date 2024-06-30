@@ -25,8 +25,9 @@ public class Inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Inicio frame = new Inicio();
-					frame.setVisible(true);
+					Inicio ini = new Inicio();
+					ini.setVisible(true);
+					ini.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -42,8 +42,9 @@ public class Atender extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Atender frame = new Atender();
-					frame.setVisible(true);
+					Inicio ini = new Inicio();
+					ini.setVisible(true);
+					ini.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

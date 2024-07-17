@@ -6,11 +6,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -59,12 +56,11 @@ public class HistorialPedidos extends JFrame {
     private void mostrarDatos(List<Cliente> listaClientes) {
         StringBuilder sb = new StringBuilder();
         for (Cliente cliente : listaClientes) {
-            sb.append("Nombre: ").append(cliente.getNombre()).append("\n");
+        	sb.append("Nombre: ").append(cliente.getNombre()).append("\n");
             sb.append("Cédula: ").append(cliente.getCedula()).append("\n");
             sb.append("Dirección: ").append(cliente.getDireccion()).append("\n");
-            sb.append("Teléfono: ").append(cliente.getMetodoPago()).append("\n");
-          
-            sb.append("Método de Pago: ").append(cliente.getTelefono()).append("\n");
+            sb.append("Método de Pago: ").append(cliente.getMetodoPago()).append("\n");
+            sb.append("Teléfono: ").append(cliente.getTelefono()).append("\n");
             sb.append("Tipo de Pizza: ").append(cliente.getTipodepizza()).append("\n");
             sb.append("Ingredientes: ").append(cliente.getIngredientesdepizza()).append("\n");
             sb.append("------------------------------\n");

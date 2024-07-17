@@ -130,9 +130,10 @@ public class Atender extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 MenuPizzas menu = new MenuPizzas();
                 menu.setVisible(true);
-                dispose();
             }
         });
+        contentPane.add(btnMenu);
+            
         contentPane.add(btnMenu);
 
         rdbtnEfectivo = new JRadioButton("Efectivo");
@@ -176,6 +177,7 @@ public class Atender extends JFrame {
         comboBoxIngredientesdePizza.setBounds(10, 267, 139, 22);
         contentPane.add(comboBoxIngredientesdePizza);
         
+     
         comboBoxTipodePizza.setSelectedItem(null);  // Desseleccionar cualquier ítem seleccionado
         comboBoxIngredientesdePizza.setSelectedItem(null);  // Desseleccionar cualquier ítem seleccionado
 
@@ -237,23 +239,55 @@ public class Atender extends JFrame {
     }
 
     public void guardarDatos() {
-        String nombre = txtTextNombreCl.getText();
-        String cedula = textCedulaCl.getText();
-        String direccion = textDireccion.getText();
-        String telefono = textTelefonoCl.getText();
-        String metodoPago = "";
-        if (rdbtnEfectivo.isSelected()) {
-            metodoPago = "Efectivo";
-        } else if (rdbtnVisa.isSelected()) {
-            metodoPago = "VISA";
-        }
-        String tipodepizza = comboBoxTipodePizza.getSelectedItem().toString();
-        String ingredientesdepizza = comboBoxIngredientesdePizza.getSelectedItem().toString();
+   	 try {
+       
+       String nombre = txtTextNombreCl.getText();
+       //Validaciones para nombre
+       if (!nombre.matches("[a-zA-Z ]+")) {
+           throw new IllegalArgumentException("El nombre solo puede contener letras y espacios.");
+       }
+       String cedula = textCedulaCl.getText();
+       //Validaciones para cédula
+       if (!cedula.matches("[0-9-]+")) {
+           JOptionPane.showMessageDialog(null, "La cédula solo puede contener números y guiones.");
+           return;
+       }
+       
+       String direccion = textDireccion.getText();
+       String telefono = textTelefonoCl.getText();
+       //Validaciones para teléfono
+       if (!telefono.matches("[0-9]{4}-[0-9]{4}")) {
+           JOptionPane.showMessageDialog(null, "La número de teléfono solo puede contener números y guiones.");
+           return;
+       }
+       String metodoPago = "";
 
-        Cliente cliente = new Cliente(nombre, cedula, direccion, telefono, metodoPago, tipodepizza, ingredientesdepizza);
-        listaClientes.add(cliente);
+       if (rdbtnEfectivo.isSelected()) {
+           metodoPago = "Efectivo";
+       } else if (rdbtnVisa.isSelected()) {
+           metodoPago = "VISA";
+       }
+       String tipodepizza = comboBoxTipodePizza.getSelectedItem().toString();
+       //Validaciones para campos vacíos
+       if (tipodepizza == null || tipodepizza.isEmpty()) {
+           throw new IllegalArgumentException("Debe seleccionar un tipo de pizza.");
+       }
 
-        JOptionPane.showMessageDialog(null, "Los datos se han guardado correctamente.");
+       String ingredientesdepizza = comboBoxIngredientesdePizza.getSelectedItem().toString();
+       //Validaciones para campos vacíos
+       if (ingredientesdepizza == null || ingredientesdepizza.isEmpty()) {
+           throw new IllegalArgumentException("Debe seleccionar un ingrediente.");
+       }
+
+       Cliente cliente = new Cliente(nombre, cedula, direccion, telefono, metodoPago, tipodepizza, ingredientesdepizza);
+       listaClientes.add(cliente);
+
+       JOptionPane.showMessageDialog(null, "Los datos se han guardado correctamente.");
+   } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+   } catch (Exception e) {
+       JOptionPane.showMessageDialog(null, "Error al guardar datos. Llenar todos los campos porfavor");
+   }
 
         // Limpiar campos después de guardar
         limpiarCampos();

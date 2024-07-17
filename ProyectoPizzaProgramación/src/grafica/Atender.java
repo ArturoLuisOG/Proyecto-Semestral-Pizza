@@ -175,6 +175,10 @@ public class Atender extends JFrame {
         comboBoxIngredientesdePizza.setForeground(new Color(47, 23, 0));
         comboBoxIngredientesdePizza.setBounds(10, 267, 139, 22);
         contentPane.add(comboBoxIngredientesdePizza);
+        
+        comboBoxTipodePizza.setSelectedItem(null);  // Desseleccionar cualquier ítem seleccionado
+        comboBoxIngredientesdePizza.setSelectedItem(null);  // Desseleccionar cualquier ítem seleccionado
+
 
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.addActionListener(new ActionListener() {

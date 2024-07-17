@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,7 +19,7 @@ public class Factura extends JFrame {
     private JPanel contentPane;
     private JTextArea textArea;
 
-    public Factura(List<Cliente> listaClientes) {
+    public Factura(Cliente cliente) {
         setTitle("Factura");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 500, 500);
@@ -48,26 +46,24 @@ public class Factura extends JFrame {
         btnCerrar.setBounds(380, 397, 89, 23);
         contentPane.add(btnCerrar);
 
-        mostrarDatos(listaClientes);
+        mostrarDatos(cliente);
     }
 
-    private void mostrarDatos(List<Cliente> listaClientes) {
+    private void mostrarDatos(Cliente cliente) {
         StringBuilder sb = new StringBuilder();
-        for (Cliente cliente : listaClientes) {
-            sb.append("Nombre: ").append(cliente.getNombre()).append("\n");
-            sb.append("Cédula: ").append(cliente.getCedula()).append("\n");
-            sb.append("Dirección: ").append(cliente.getDireccion()).append("\n");
-            sb.append("Teléfono: ").append(cliente.getTelefono()).append("\n");
-            sb.append("Tipo de Pizza: ").append(cliente.getTipodepizza()).append("\n");
-            sb.append("Método de Pago: ").append(cliente.getMetodoPago()).append("\n");
-            sb.append("Ingredientes: ").append(cliente.getIngredientesdepizza()).append("\n");
-            sb.append("Precio: $").append(calcularPrecio(cliente.getTipodepizza())).append("\n");
-            sb.append("------------------------------\n");
-        }
+        sb.append("Nombre: ").append(cliente.getNombre()).append("\n");
+        sb.append("Cédula: ").append(cliente.getCedula()).append("\n");
+        sb.append("Dirección: ").append(cliente.getDireccion()).append("\n");
+        sb.append("Método de Pago: ").append(cliente.getMetodoPago()).append("\n");
+        sb.append("Teléfono: ").append(cliente.getTelefono()).append("\n");
+        sb.append("Tipo de Pizza: ").append(cliente.getTipodepizza()).append("\n");
+        sb.append("Ingredientes: ").append(cliente.getIngredientesdepizza()).append("\n");
+        sb.append("Precio: $").append(calcularPrecio(cliente.getTipodepizza())).append("\n");
+        sb.append("------------------------------\n");
+
         textArea.setText(sb.toString());
     }
 
-    // Método para calcular el precio según el tipo de pizza
     private double calcularPrecio(String tipoDePizza) {
         switch (tipoDePizza) {
             case "Pizza Pequeña":

@@ -12,15 +12,17 @@ public class Cliente {
     private String tipoDePizza;
     private String ingredientesDePizza;
 
-    public Cliente(String nombre, String direccion, String cedula, String metodoPago, String telefono, String tipoDePizza, String ingredientesDePizza) {
+    public Cliente(String nombre, String direccion, String cedula, String telefono, String metodoPago, String tipoDePizza, String ingredientesDePizza) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.cedula = cedula;
-        this.metodoPago = metodoPago;
         this.telefono = telefono;
+        this.metodoPago = metodoPago;
         this.tipoDePizza = tipoDePizza;
         this.ingredientesDePizza = ingredientesDePizza;
     }
+
+   
 
     public String getNombre() {
         return nombre;
@@ -34,13 +36,14 @@ public class Cliente {
         return cedula;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
     public String getMetodoPago() {
         return metodoPago;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
 
 	public String getTipodepizza() {
 		return tipoDePizza;

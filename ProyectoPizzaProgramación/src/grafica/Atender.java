@@ -1,4 +1,3 @@
-//Clase Atender
 package grafica;
 
 import javax.swing.ButtonGroup;
@@ -21,8 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import logica.Cliente;
 
-
-
 public class Atender extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -44,19 +41,16 @@ public class Atender extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Inicio ini = new Inicio();
-                    ini.setVisible(true);
-                    ini.setLocationRelativeTo(null);
+                    Inicio frame = new Inicio();
+                    frame.setVisible(true);
+                    frame.setLocationRelativeTo(null); // Para centrar la ventana en la pantalla
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-
-    /**
-     * Create the frame.
-     */
+   
     public Atender() {
         setTitle("Calderón a la Pizza");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,18 +121,20 @@ public class Atender extends JFrame {
         lblMetodoDePago.setFont(new Font("Bodoni MT", Font.ITALIC, 25));
         lblMetodoDePago.setBounds(10, 87, 158, 26);
         contentPane.add(lblMetodoDePago);
-        
+
         JButton btnMenu = new JButton("Menú");
         btnMenu.setForeground(new Color(47, 23, 0));
         btnMenu.setFont(new Font("Bodoni MT", Font.BOLD | Font.ITALIC, 17));
         btnMenu.setBounds(138, 402, 116, 23);
         btnMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	MenuPizzas menu = new MenuPizzas();
+                MenuPizzas menu = new MenuPizzas();
                 menu.setVisible(true);
+                dispose();
             }
         });
         contentPane.add(btnMenu);
+
         rdbtnEfectivo = new JRadioButton("Efectivo");
         rdbtnEfectivo.setForeground(new Color(47, 23, 0));
         rdbtnEfectivo.setFont(new Font("Bodoni MT", Font.ITALIC, 14));
@@ -150,15 +146,15 @@ public class Atender extends JFrame {
         rdbtnVisa.setFont(new Font("Bodoni MT", Font.ITALIC, 14));
         rdbtnVisa.setBounds(10, 153, 80, 23);
         contentPane.add(rdbtnVisa);
-        
-        //Para que solo se pueda seleccionar uno de los 2 botones
+
+        // Agrupar los botones de selección
         ButtonGroup group = new ButtonGroup();
         group.add(rdbtnEfectivo);
         group.add(rdbtnVisa);
 
-        comboBoxTipodePizza = new JComboBox();
+        comboBoxTipodePizza = new JComboBox<>();
         comboBoxTipodePizza.setForeground(new Color(47, 23, 0));
-        comboBoxTipodePizza.setModel(new DefaultComboBoxModel(new String[] {"Pizza Pequeña", "Pizza Familiar", "Pizza Personal", "Pizza Mediana"}));
+        comboBoxTipodePizza.setModel(new DefaultComboBoxModel<>(new String[]{"Pizza Pequeña", "Pizza Familiar", "Pizza Personal", "Pizza Mediana"}));
         comboBoxTipodePizza.setBounds(223, 127, 139, 22);
         contentPane.add(comboBoxTipodePizza);
 
@@ -168,9 +164,21 @@ public class Atender extends JFrame {
         lblTipoDePizza.setBounds(213, 87, 158, 26);
         contentPane.add(lblTipoDePizza);
 
+        JLabel lblIngreduientesDeLa = new JLabel("Ingredientes de la Pizza");
+        lblIngreduientesDeLa.setForeground(new Color(47, 23, 0));
+        lblIngreduientesDeLa.setFont(new Font("Bodoni MT", Font.ITALIC, 25));
+        lblIngreduientesDeLa.setBounds(10, 226, 250, 31);
+        contentPane.add(lblIngreduientesDeLa);
+
+        comboBoxIngredientesdePizza = new JComboBox<>();
+        comboBoxIngredientesdePizza.setModel(new DefaultComboBoxModel<>(new String[]{"Quezo Mozarella", "Jamón", "Pepperoni", "Piña", "Aceitunas", "Pollo", "Champiñones", "Jalapeños"}));
+        comboBoxIngredientesdePizza.setForeground(new Color(47, 23, 0));
+        comboBoxIngredientesdePizza.setBounds(10, 267, 139, 22);
+        contentPane.add(comboBoxIngredientesdePizza);
+
         JButton btnGuardar = new JButton("Guardar");
         btnGuardar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {    
+            public void actionPerformed(ActionEvent e) {
                 guardarDatos();
             }
         });
@@ -192,30 +200,23 @@ public class Atender extends JFrame {
         btnVolver.setBounds(521, 402, 89, 23);
         contentPane.add(btnVolver);
 
-        JLabel lblIngreduientesDeLa = new JLabel("Ingredientes de la Pizza");
-        lblIngreduientesDeLa.setForeground(new Color(47, 23, 0));
-        lblIngreduientesDeLa.setFont(new Font("Bodoni MT", Font.ITALIC, 25));
-        lblIngreduientesDeLa.setBounds(10, 226, 250, 31);
-        contentPane.add(lblIngreduientesDeLa);
-
-        comboBoxIngredientesdePizza = new JComboBox();
-        comboBoxIngredientesdePizza.setModel(new DefaultComboBoxModel(new String[] {"Quezo Mozarella", "Jamón", "Pepperoni", "Piña", "Aceitunas", "Pollo", "Champiñones", "Jalapeños"}));
-        comboBoxIngredientesdePizza.setForeground(new Color(47, 23, 0));
-        comboBoxIngredientesdePizza.setBounds(10, 267, 139, 22);
-        contentPane.add(comboBoxIngredientesdePizza);
-
         JButton btnFactura = new JButton("Factura");
         btnFactura.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Factura factura = new Factura(listaClientes);
-                factura.setVisible(true);
+                if (!listaClientes.isEmpty()) {
+                    Cliente cliente = listaClientes.get(listaClientes.size() - 1); // Obtener el último cliente
+                    Factura factura = new Factura(cliente);
+                    factura.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay clientes para generar factura.");
+                }
             }
         });
         btnFactura.setForeground(new Color(47, 23, 0));
         btnFactura.setFont(new Font("Bodoni MT", Font.BOLD | Font.ITALIC, 17));
         btnFactura.setBounds(390, 402, 116, 23);
         contentPane.add(btnFactura);
-        
+
         JButton btnHistorial = new JButton("Historial");
         btnHistorial.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -223,15 +224,11 @@ public class Atender extends JFrame {
                 historial.setVisible(true);
                 dispose();
             }
-            
-            
         });
         btnHistorial.setForeground(new Color(47, 23, 0));
         btnHistorial.setFont(new Font("Bodoni MT", Font.BOLD | Font.ITALIC, 17));
         btnHistorial.setBounds(264, 402, 116, 23);
         contentPane.add(btnHistorial);
-        
-      
 
     }
 
@@ -253,6 +250,20 @@ public class Atender extends JFrame {
         listaClientes.add(cliente);
 
         JOptionPane.showMessageDialog(null, "Los datos se han guardado correctamente.");
+
+        // Limpiar campos después de guardar
+        limpiarCampos();
+    }
+
+    private void limpiarCampos() {
+        txtTextNombreCl.setText("");
+        textCedulaCl.setText("");
+        textDireccion.setText("");
+        textTelefonoCl.setText("");
+        rdbtnEfectivo.setSelected(false);
+        rdbtnVisa.setSelected(false);
+        comboBoxTipodePizza.setSelectedIndex(0);
+        comboBoxIngredientesdePizza.setSelectedIndex(0);
     }
 
     public List<Cliente> getListaClientes() {

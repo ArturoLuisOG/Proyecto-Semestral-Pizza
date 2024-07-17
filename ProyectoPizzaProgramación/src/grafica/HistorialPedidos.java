@@ -52,11 +52,6 @@ public class HistorialPedidos extends JFrame {
         btnVolver.setFont(new Font("Bodoni MT", Font.BOLD | Font.ITALIC, 17));
         btnVolver.setBounds(380, 397, 89, 23);
         contentPane.add(btnVolver);
-        
-		JLabel lblFondoHistorial = new JLabel("fondoHistorial");
-		lblFondoHistorial.setIcon(new ImageIcon("L:\\Fondo si o si.jpg"));
-		lblFondoHistorial.setBounds(0, 0, 771, 452);
-		contentPane.add(lblFondoHistorial);
 
         mostrarDatos(listaClientes);
     }
